@@ -9,14 +9,18 @@ public class PlayerShooting : MonoBehaviour
 
     private float rateOfFire;
     private float shootTime;
+    private AudioSource source;
+
 
     public GameObject projectileTest;
     public Transform barrelTest;
-
+    public AudioClip shotClip;
+    
 
     private void Awake()
     {
         controls = GetComponent<PlayerControls>();
+        source = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -49,6 +53,7 @@ public class PlayerShooting : MonoBehaviour
     {
         GameObject shot = Instantiate(projectileTest, barrelTest.position,barrelTest.rotation);
         shot.GetComponent<Rigidbody>().AddForce(barrelTest.forward*100,ForceMode.Impulse);
+        source.PlayOneShot(shotClip);
         shootTime = 0;
     }
 
